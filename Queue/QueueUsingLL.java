@@ -1,5 +1,7 @@
 package Queue;
 
+import java.util.Stack;
+
 public class QueueUsingLL {
 
     // Node of linked list
@@ -11,33 +13,36 @@ public class QueueUsingLL {
             next = null;
         }
     }
-
     // Queue Implementation
     static class Queue{
         Node head;
         Node tail;
 
+        int queueSize = 0;
         Queue(){
             head = tail = null;
         }
 
         void push(int val){
             Node node = new Node(val);
-            if(empty()){
+            if(isEmpty()){
                 head = tail = node;
+                queueSize++;
             }
             else{
                 tail.next = node;
                 tail = node;
+                queueSize++;
             }
         }
 
         void pop(){
-            if(empty()){
+            if(isEmpty()){
                 return;
             }
             else{
                 head = head.next;
+                queueSize--;
             }
         }
 
@@ -45,9 +50,10 @@ public class QueueUsingLL {
             return head.val;
         }
 
-        boolean empty(){
+        boolean isEmpty(){
             return head==null;
         }
+
         void printQueue(){
             Node temp = head;
             if(temp==null){
@@ -59,6 +65,20 @@ public class QueueUsingLL {
             }
         }
 
+        void reverseQueue(){
+            Stack<Integer> st = new Stack<>();
+            Node temp = head;
+            while(temp!=null){
+                st.push(temp.val);
+                temp = temp.next;
+            }
+            while(!st.isEmpty()){
+                System.out.print(st.pop()+ " ");
+            }
+            System.out.println();
+        }
+
+
     }
 
 
@@ -67,13 +87,10 @@ public class QueueUsingLL {
         qu.push(1);
         qu.push(2);
         qu.push(3);
-        qu.push(4);
-        qu.pop();
-        qu.pop();
-        qu.pop();
-        qu.pop();
-        qu.pop();
-        qu.printQueue();
+        qu.push(5);
+
+//        qu.printQueue();
+        qu.reverseQueue();
 
     }
 }
